@@ -1,4 +1,4 @@
-import { IEnemy, IPlayer, ISkill } from '@/interface/canvas';
+import { IEnemy, IPlayer, ISkill } from '@/interface/index';
 
 export default function Player() {
   if (!(this instanceof Player)) {

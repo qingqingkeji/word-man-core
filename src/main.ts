@@ -1,4 +1,4 @@
-import { ICanvasContext } from '@/interface/canvas';
+import { ICanvasContext } from '@/interface/index';
 import Player from './player';
 
 function WordManCore({ ctx, player }: ICanvasContext) {
