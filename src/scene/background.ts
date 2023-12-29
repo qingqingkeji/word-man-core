@@ -1,12 +1,17 @@
-import { ISpirit } from '@/interface/scene';
 import Sprite from '.';
+import config from '@/base/config';
+import { ISpirit, Vector } from '@/interface';
 
-function BackGround(sp: ISpirit) {
-  Sprite.call(this, sp);
+const background: ISpirit = {
+  width: config.screenWidth,
+  height: config.screenHeight,
+  position: new Vector(0, 0),
+  image: config.background,
+  visible: true,
+};
 
-  this.drawToCanvas();
+export default class BackGround extends Sprite {
+  constructor() {
+    super(background);
+  }
 }
-
-BackGround.prototype = new Sprite();
-
-export default BackGround;

@@ -1,11 +1,3 @@
-import { ISpirit } from './scene';
-
-export interface IGameContext {
-  ctx: CanvasRenderingContext2D;
-  player: IPlayer;
-  options: any;
-}
-
 type IWordType = '主' | '状' | '谓' | '补' | '定' | '宾';
 type IWordProperty =
   | '名词'
@@ -20,6 +12,27 @@ type IWordProperty =
   | '助词'
   | '叹词'
   | '拟声词';
+
+export class Vector<T> {
+  public x: T;
+  public y: T;
+  constructor(x: T, y: T) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
+// node 样式
+export interface IStyle {
+  width: number;
+  height: number;
+}
+
+export interface ISpirit extends IStyle {
+  image: string;
+  visible: boolean;
+  position: Vector<number>;
+}
 
 // 技能 有buff/debuff
 export interface INode {
@@ -37,14 +50,10 @@ export interface INode {
 // 如果是敌人： skill 只能有一个定语
 export interface IPlayer extends ISpirit {
   node: INode;
-  skill: Array<INode> | INode;
-  power: number; // 角色威力 = 初始威力 + 技能威力
-  speed: number; // 角色速度 = 初始速度 + 技能速度
+  skill: Array<INode>;
 }
 
 export interface IEnemy extends ISpirit {
   node: INode;
   skill: INode;
-  power: number; // 角色威力 = 初始威力 + 技能威力
-  speed: number; // 角色速度 = 初始速度 + 技能速度
 }

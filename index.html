@@ -7,12 +7,23 @@
     <title>word man</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <canvas id="target"></canvas>
+    </div>
     <script type="module" src="/src/main.ts"></script>
 
     <script type="module">
       import WordManCore from '/src/main.ts';
-      console.log('terser', WordManCore);
+
+      // 获取 canvas 元素
+      var canvas = document.getElementById('target');
+
+      // 获取上下文
+      var ctx = canvas.getContext('2d');
+
+      const wordman = new WordManCore({ ctx });
+
+      console.log(wordman);
     </script>
   </body>
 </html>

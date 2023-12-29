@@ -1,35 +1,40 @@
-import { ISpirit } from '@/interface/scene';
+import { ISpirit, Vector } from '@/interface';
 
-function Sprite(sp?: ISpirit) {
-  if (!sp) return;
-  this.x = sp.x;
-  this.y = sp.y;
-  this.width = sp.x;
-  this.height = sp.height;
-  this.img = new Image();
-  this.img.src = sp.img;
+export default class Sprite implements ISpirit {
+  public position: Vector<number>; // 坐标
+  public width: number; // 宽度
+  public height: number; // 高度
+  public image: string; // 图片
+  public visible: boolean; // 是否可见
+
+  constructor(sp: ISpirit) {
+    this.position = sp.position;
+    this.width = sp.width;
+    this.height = sp.height;
+    this.image = sp.image;
+    this.visible = sp.visible;
+  }
+
+  drawImage(ctx: CanvasRenderingContext2D) {
+    if (!this.visible) return;
+
+    const image = new Image();
+    image.src = this.image;
+
+    ctx.drawImage(image, this.position.x, this.position.y, this.width, this.height);
+  }
+
+  isCollideWith(sp: ISpirit) {
+    let spX = sp.position.x + sp.width / 2;
+    let spY = sp.position.y + sp.height / 2;
+
+    if (!this.visible || !sp.visible) return false;
+
+    return !!(
+      spX >= this.position.x &&
+      spX <= this.position.x + this.width &&
+      spY >= this.position.y &&
+      spY <= this.position.y + this.height
+    );
+  }
 }
-/**
- * 将精灵图绘制在canvas上
- */
-Sprite.prototype.drawToCanvas = function (ctx: CanvasRenderingContext2D) {
-  if (!this.visible) return;
-
-  ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-};
-
-/**
- * 简单的碰撞检测定义：
- * 另一个精灵的中心点处于本精灵所在的矩形内即可
- * @param{Sprite} sp: Sptite的实例
- */
-Sprite.prototype.isCollideWith = function (sp: ISpirit) {
-  let spX = sp.x + sp.width / 2;
-  let spY = sp.y + sp.height / 2;
-
-  if (!this.visible || !sp.visible) return false;
-
-  return !!(spX >= this.x && spX <= this.x + this.width && spY >= this.y && spY <= this.y + this.height);
-};
-
-export default Sprite;
