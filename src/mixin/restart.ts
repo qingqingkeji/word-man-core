@@ -3,10 +3,9 @@ import databus from '@/base/databus';
 import BackGround from '@/scene/background';
 
 const restartMixin = WordManCore => {
-  WordManCore.prototype.restart = function (ctx: CanvasRenderingContext2D) {
+  WordManCore.prototype.restart = function () {
     databus.reset();
 
-    this.bg = new BackGround();
     // this.player = new Player(ctx);
   };
 };

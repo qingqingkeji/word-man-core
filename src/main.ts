@@ -6,15 +6,23 @@ import restartMixin from './mixin/restart';
 import updateMixin from './mixin/update';
 
 import config from './base/config';
+import databus from './base/databus';
 import { IConfig } from './interface/base';
 
-function WordMan(ctx: CanvasRenderingContext2D, options: IConfig) {
+import { configTest } from '@/constant';
+
+function WordMan(ctx: CanvasRenderingContext2D, options: IConfig = configTest) {
   if (!(this instanceof WordMan)) {
     return console.error('WordManCore is a constructor and should be called with the `new` keyword');
   }
   if (!ctx) return console.error('canvas mast be provided!');
 
   config.reset(options);
+  databus.reset();
+
+  this.init(ctx);
+
+  this.loop();
 }
 
 initMixin(WordMan); // 初始化参数

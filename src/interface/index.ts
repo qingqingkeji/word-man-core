@@ -26,6 +26,7 @@ export class Vector<T> {
 export interface IStyle {
   width: number;
   height: number;
+  radius: number;
 }
 
 export interface ISpirit extends IStyle {
@@ -54,6 +55,11 @@ export interface IPlayer extends ISpirit {
 }
 
 export interface IEnemy extends ISpirit {
+  node: INode;
+  skill: INode;
+}
+
+export interface IGift extends ISpirit {
   node: INode;
   skill: INode;
 }

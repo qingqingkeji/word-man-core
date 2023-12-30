@@ -1,10 +1,13 @@
-import { IConfig } from '@/interface/base';
+import { IPlayer } from '@/interface';
+import { IConfig, ILevel } from '@/interface/base';
 
 let instance: Config;
 class Config implements IConfig {
-  screenWidth = 0;
-  screenHeight = 0;
+  screenWidth = 896;
+  screenHeight = 414;
   background = '';
+  player!: IPlayer;
+  levels!: ILevel[];
 
   constructor() {
     if (instance) return instance;
