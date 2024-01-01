@@ -37,13 +37,14 @@ export default class JoyStick {
   drawInternal() {
     if (!this.pressed) return;
     this.context.beginPath();
-    let moveX = Math.abs(this.direction.x - this.position.x);
-    let moveY = Math.abs(this.direction.y - this.position.y);
-    let dx = this.direction.x - this.position.x > 0 ? 1 : -1;
-    let dy = this.direction.y - this.position.y > 0 ? 1 : -1;
+    let moveX = this.direction.x - this.position.x;
+    let moveY = this.direction.y - this.position.y;
+    let distance = Math.sqrt(moveX * moveX + moveY * moveY);
 
-    this.direction.x = moveX < this.maxMoveStick ? this.direction.x : this.position.x + dx * this.maxMoveStick;
-    this.direction.y = moveY < this.maxMoveStick ? this.direction.y : this.position.y + dy * this.maxMoveStick;
+    if (distance > this.maxMoveStick) {
+      this.direction.x = this.position.x + this.maxMoveStick * (moveX / distance);
+      this.direction.y = this.position.y + this.maxMoveStick * (moveY / distance);
+    }
 
     this.context.arc(this.direction.x, this.direction.y, this.internalRadius, 0, this.internalRadius, false);
 

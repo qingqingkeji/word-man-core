@@ -61,5 +61,4 @@ export interface IEnemy extends ISpirit {
 
 export interface IGift extends ISpirit {
   node: INode;
-  skill: INode;
 }

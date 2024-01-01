@@ -21,7 +21,6 @@ export default defineConfig({
     rollupOptions: {
       external: ['vue'],
     },
-    minify: 'esbuild',
   },
   plugins: [dts({ tsconfigPath: './tsconfig.json' })],
 });

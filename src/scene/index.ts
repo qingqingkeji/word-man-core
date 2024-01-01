@@ -31,6 +31,6 @@ export default class Sprite implements ISpirit {
     const dy = this.position.y - sp.position.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
 
-    return !!(distance <= sp.radius + this.radius);
+    return !!(distance <= sp?.radius + this.radius);
   }
 }

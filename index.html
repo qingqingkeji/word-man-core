@@ -27,7 +27,31 @@
       // 获取上下文
       var ctx = window.canvas.getContext('2d');
 
-      const wordman = new WordManCore(ctx);
+      const options = {
+        screenWidth: 896,
+        screenHeight: 414,
+        background: 'https://img.qingqingkeji.cn/bg.jpeg',
+        player: {
+          node: {
+            id: '', // 技能id
+            type: '主', // 句子属性 主谓宾定状补
+            property: '代词', // 词性
+            name: '我', // 词语
+            description: '这是主角的描述', // 技能描述
+            speed: 0.6,
+            power: 1,
+            nextType: ['状', '谓'], // 下一个技能
+          },
+          skill: [],
+          visible: true,
+          image: '',
+          position: { x: 448, y: 360 },
+          radius: 0,
+        },
+        levels: [{}],
+      };
+
+      const wordman = new WordManCore(ctx, options);
 
       console.log(wordman, ctx instanceof CanvasRenderingContext2D);
     </script>

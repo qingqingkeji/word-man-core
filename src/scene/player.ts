@@ -1,6 +1,7 @@
 import Sprite from '@/scene';
 import { IPlayer, INode } from '@/interface/index';
 import config from '@/base/config';
+import databus from '@/base/databus';
 
 export default class Player extends Sprite {
   public speed: number;
@@ -46,7 +47,7 @@ export default class Player extends Sprite {
   compose(skill: INode) {
     const type = skill.type;
     const len = this.skill.length || 0;
-    const top = this.skill[len - 1];
+    const top = len ? this.skill[len - 1] : null;
     if (!top) {
       if (['状', '谓'].includes(type)) {
         this.skill.push(skill);
@@ -59,7 +60,6 @@ export default class Player extends Sprite {
 
     if (!skill.nextType.length) {
       this.evolution();
-      this.skill = [];
     }
   }
 
@@ -80,7 +80,8 @@ export default class Player extends Sprite {
     this.speed = speed;
     this.power = power;
 
-    // TODO 将当前句子 写入 databus， 以便后期入库
+    databus.skills.push([this.node, ...this.skill]);
+    this.skill = [];
   }
 
   // 圆盘控制移动

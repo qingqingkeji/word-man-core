@@ -10,8 +10,8 @@ export default class BackGround extends Sprite {
       position: new Vector(0, 0),
       image: config.background,
       visible: true,
+      radius: 0,
     };
-    console.log('init background :', background);
     super(background);
   }
 }
