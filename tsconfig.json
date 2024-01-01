@@ -3,7 +3,7 @@
   "compilerOptions": {
     "strict": true,
     "module": "es2015",
-    "target": "es2015", // 转化成的目标语言 1s
+    "target": "es2015", // 转化成的目标语言 1sa
     "baseUrl": ".", // 用于设置解析非相对模块名称的基本目录，相对模块不会受到baseUrl的影响
     "outDir": "./dist/", // 打包到的目录
     "sourceMap": true, // 是否生成sourceMap（用于浏览器调试）
