@@ -1,10 +1,9 @@
-import databus from '@/base/databus';
-// import Player from '@/player';
-// import BackGround from '@/scene/background';
+import config from '@/base/config';
+import Player from '@/scene/player';
 
 const restartMixin = WordManCore => {
   WordManCore.prototype.restart = function () {
-    databus.reset();
+    this.player = new Player(config.player); // 主角
 
     // this.player = new Player(ctx);
   };

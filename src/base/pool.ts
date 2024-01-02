@@ -1,6 +1,6 @@
-import Sprite from '@/scene';
 import Enemy from '@/scene/enemy';
 import Gift from '@/scene/gift';
+import Role from '@/scene/role';
 
 const __: { [key: string]: symbol } = {
   poolDic: Symbol('poolDic'),
@@ -11,13 +11,13 @@ export default class Pool {
     this[__.poolDic] = new Map<string, Array<Gift | Enemy>>();
   }
 
-  getPoolBySign<T extends Sprite>(name: string): Array<T> {
+  getPoolBySign<T extends Role>(name: string): Array<T> {
     if (!this[__.poolDic].has(name)) this[__.poolDic].set(name, []);
 
     return this[__.poolDic].get(name);
   }
 
-  getItemByClass<T extends Sprite, U>(name: string, className: { new (sp: U): T }, sp: U): T {
+  getItemByClass<T extends Role, U>(name: string, className: { new (sp: U): T }, sp: U): T {
     let pool = this.getPoolBySign(name);
 
     let result = pool.length ? pool.shift() : new className(sp);
@@ -29,7 +29,7 @@ export default class Pool {
    * 将对象回收到对象池
    * 方便后续继续使用
    */
-  recover<T extends Sprite>(name: string, instance: T) {
+  recover<T extends Role>(name: string, instance: T) {
     this.getPoolBySign(name).push(instance);
   }
 }

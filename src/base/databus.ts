@@ -2,8 +2,8 @@ import { INode } from '@/interface';
 import { IDataBus } from '@/interface/base';
 
 import Pool from './pool';
-import Enemy from '@/scene/enemy';
 import Gift from '@/scene/gift';
+import Enemy from '@/scene/enemy';
 
 let instance: DataBus;
 class DataBus implements IDataBus {
@@ -12,30 +12,26 @@ class DataBus implements IDataBus {
   public enemys: Array<Enemy> = []; // 当前关卡所有enemy 对象
   public gifts: Array<Gift> = [];
   public skills: Array<Array<INode>> = []; // 当前关卡 主角已拥有的 能力
-  public gameOver: boolean = false; // 是否游戏结束
+  public gameOver: 0 | 1 | 2 = 0; // 是否游戏结束
   public pool: Pool = new Pool();
 
   constructor() {
     if (instance) return instance;
 
     instance = this;
-
-    this.reset();
   }
 
-  reset() {
+  replay() {
+    this.gameOver = 0;
     this.frame = 0;
-    this.level = 1;
     this.enemys = [];
     this.gifts = [];
     this.skills = [];
-    this.gameOver = false;
   }
 
   next() {
-    const level = this.level + 1;
-    this.reset();
-    this.level = level;
+    this.level += 1;
+    this.replay();
   }
 
   /**
@@ -54,9 +50,7 @@ class DataBus implements IDataBus {
    */
   removeGift(gift: Gift) {
     gift.visible = false;
-
-    this.gifts.filter(item => item.visible);
-
+    this.gifts = this.gifts.filter(item => item.visible);
     this.pool.recover('gift', gift);
   }
 }

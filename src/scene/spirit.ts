@@ -6,7 +6,6 @@ export default class Sprite implements ISpirit {
   public height: number; // 高度
   public image: string; // 图片
   public visible: boolean; // 是否可见
-  public radius: number = 0;
 
   constructor(sp: ISpirit) {
     this.position = sp.position;
@@ -23,14 +22,5 @@ export default class Sprite implements ISpirit {
     image.src = this.image;
 
     ctx.drawImage(image, this.position.x, this.position.y, this.width, this.height);
-  }
-
-  isCollideWith(sp: ISpirit) {
-    if (!this.visible || !sp.visible) return false;
-    const dx = this.position.x - sp.position.x;
-    const dy = this.position.y - sp.position.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
-
-    return !!(distance <= sp?.radius + this.radius);
   }
 }

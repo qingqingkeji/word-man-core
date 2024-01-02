@@ -1,46 +1,19 @@
-import Sprite from '@/scene';
 import { IPlayer, INode } from '@/interface/index';
 import config from '@/base/config';
 import databus from '@/base/databus';
+import Role from '@/scene/role';
 
-export default class Player extends Sprite {
+export default class Player extends Role {
   public speed: number;
   public power: number;
-  public skill: Array<INode>;
-  public node: INode;
-  radius: number = 0;
+  public skill: Array<INode> = [];
 
   constructor(player: IPlayer) {
-    super(player);
+    super(player, 'player');
 
-    this.node = player.node;
-    this.speed = player.node.speed || 0;
-    this.power = player.node.power || 0;
+    this.speed = player.node.speed || 1;
+    this.power = player.node.power || 1;
     this.skill = player.skill || [];
-  }
-
-  render(ctx: CanvasRenderingContext2D) {
-    if (!this.visible) return;
-
-    const fontSize = 18;
-    this.radius = (this.node.name.length * fontSize + 10) / 2;
-    const border = 5;
-
-    //画圈
-    ctx.beginPath();
-    ctx.lineWidth = border;
-    ctx.fillStyle = '#1d89d5';
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.24)';
-    // 绘制完整圆
-    ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI);
-    ctx.stroke();
-    ctx.fill(); //开始填充
-    ctx.closePath();
-    //写字
-    ctx.fillStyle = '#fff';
-    ctx.font = fontSize + 'px Microsoft Yahei';
-    ctx.textAlign = 'center';
-    ctx.fillText(this.node.name, this.position.x, this.position.y + fontSize / 2 - 3);
   }
 
   // 两个碰撞上的时候，判断组合逻辑
@@ -80,7 +53,7 @@ export default class Player extends Sprite {
     this.speed = speed;
     this.power = power;
 
-    databus.skills.push([this.node, ...this.skill]);
+    databus.skills.push(this.skill);
     this.skill = [];
   }
 

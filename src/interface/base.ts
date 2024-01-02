@@ -1,5 +1,5 @@
 import Enemy from '@/scene/enemy';
-import { IEnemy, IPlayer, INode, IGift } from '.';
+import { IEnemy, IPlayer, INode, IGift, IStyle } from '.';
 import Gift from '@/scene/gift';
 
 export type IDataBus = {
@@ -7,10 +7,11 @@ export type IDataBus = {
   level: number;
   enemys: Array<Enemy>;
   gifts: Array<Gift>;
-  gameOver: boolean;
+  gameOver: 0 | 1 | 2; // 0: 游戏中; 1: 游戏成功; 2: 游戏失败;
   skills: Array<Array<INode>>;
 
-  reset: () => void;
+  next: () => void;
+  replay: () => void;
   removeEnemey: (enemy: Enemy) => void;
   removeGift: (gift: Gift) => void;
 };
@@ -27,5 +28,8 @@ export type IConfig = {
   screenHeight: number;
   background: string;
   player: IPlayer;
-  levels: Array<ILevel>;
+  level: ILevel;
+  playerStyle: IStyle;
+  giftStyle: IStyle;
+  enemyStyle: IStyle;
 };

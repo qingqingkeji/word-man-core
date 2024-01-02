@@ -8,9 +8,7 @@ const initMixin = WordManCore => {
     this.ctx = ctx;
     this.aniId = 0; // 维护当前requestAnimationFrame的id
 
-    this.bg = new BackGround(); // 背景相关
-
-    this.player = new Player(config.player); // 主角
+    this.bg = new BackGround(); // 背景
 
     this.JoyStick = new JoyStick(ctx); // 虚拟摇杆
 

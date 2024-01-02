@@ -1,4 +1,4 @@
-import { IPlayer } from '@/interface';
+import { IPlayer, IStyle } from '@/interface';
 import { IConfig, ILevel } from '@/interface/base';
 
 let instance: Config;
@@ -7,7 +7,10 @@ class Config implements IConfig {
   screenHeight = 414;
   background = '';
   player!: IPlayer;
-  levels!: ILevel[];
+  level!: ILevel;
+  playerStyle!: IStyle;
+  giftStyle!: IStyle;
+  enemyStyle!: IStyle;
 
   constructor() {
     if (instance) return instance;
@@ -15,8 +18,25 @@ class Config implements IConfig {
     instance = this;
   }
 
-  reset(config: IConfig) {
-    Object.assign(this, config);
+  initBase(w: number, h: number, background: string, playerStyle: IStyle, giftStyle: IStyle, enemyStyle: IStyle) {
+    this.screenWidth = w;
+    this.screenHeight = h;
+    this.background = background;
+    this.playerStyle = playerStyle;
+    this.giftStyle = giftStyle;
+    this.enemyStyle = enemyStyle;
+  }
+
+  setPlayer(player: IPlayer) {
+    this.player = player;
+  }
+
+  setLevel(level: ILevel) {
+    this.level = level;
+  }
+
+  setBackground(bg: string) {
+    this.background = bg;
   }
 }
 

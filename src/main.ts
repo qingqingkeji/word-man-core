@@ -15,7 +15,14 @@ function WordMan(ctx: CanvasRenderingContext2D, options: IConfig) {
   }
   if (!ctx) return console.error('canvas mast be provided!');
 
-  config.reset(options);
+  config.initBase(
+    options.screenWidth,
+    options.screenHeight,
+    options.background,
+    options.playerStyle,
+    options.giftStyle,
+    options.enemyStyle
+  );
 
   this.init(ctx);
 
@@ -23,7 +30,7 @@ function WordMan(ctx: CanvasRenderingContext2D, options: IConfig) {
 }
 
 initMixin(WordMan); // 初始化参数
-restartMixin(WordMan); // 重新开始游戏, 游戏初始化
+restartMixin(WordMan); // 游戏初始化
 enemyMixin(WordMan); // 敌人生成 根据关卡
 giftMixin(WordMan); // 礼物生成 根据关卡
 renderMixin(WordMan); // 渲染函数
